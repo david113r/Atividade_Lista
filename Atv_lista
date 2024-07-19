@@ -1,0 +1,207 @@
+#include<stdio.h>
+
+struct No {
+
+    int valor;
+    No* prox;
+
+    No() {
+        prox = NULL;
+    }
+
+    No(int _valor) {
+        valor = _valor;
+        prox = NULL;
+    }
+
+};
+
+struct Lista {
+
+    No* inicio;
+    No* fim;
+    int n;
+
+    Lista() {
+        inicio = NULL;
+        fim = NULL;
+        n = 0;
+    }
+
+    void inserirInicio(int valor) {
+        No* novo = new No(valor);
+        if (inicio == NULL) {
+            inicio = novo;
+            fim = novo;
+        } else {
+            novo->prox = inicio;
+            inicio = novo;
+        }
+        n++;
+    }
+
+    void inserirFinal(int valor) {
+        No* novo = new No(valor);
+        if (inicio == NULL) {
+            inicio = novo;
+            fim = novo;
+        } else {
+            fim->prox = novo;
+            fim = novo;
+        }
+        n++;
+    }
+
+    void removerInicio() {
+        if (n == 0) return;
+        if (n == 1) {
+            delete(inicio);
+            inicio = NULL;
+            fim = NULL;
+            n--;
+            return;
+        }
+        No* aux = inicio;
+        inicio = inicio->prox;
+        delete(aux);
+        n--;
+    }
+
+    void removerFinal() {
+        if (n == 0) return;
+        if (n == 1) {
+            delete(inicio);
+            inicio = NULL;
+            fim = NULL;
+            n--;
+            return;
+        }
+        No* aux = inicio;
+        while (aux->prox != fim) {
+            aux = aux->prox;
+        }
+        delete(fim);
+        fim = aux;
+        aux->prox = NULL;
+        n--;
+    }
+
+    void imprimir() {
+        No* aux = inicio;
+        //printf("%d %d\n", aux, aux->valor);
+        while (aux != NULL) {
+            printf("%d->", aux->valor);
+            //printf("%d %d\n", aux->prox, aux->valor);
+            aux = aux->prox;
+        }
+
+        printf("\n");
+    }
+
+    void questao1(){
+
+    int n;
+
+    printf("\ndigite quantidade de numeros aqui para ser removido:");
+    scanf("%d",&n);
+
+   for(int i=0;i<n;i++){
+        removerFinal();
+
+
+    }
+
+   imprimir();
+
+
+    }
+
+    void questao2(){
+
+    No * aux=inicio;
+    No *segundo;
+
+
+    segundo=inicio->prox;
+    inicio->prox=segundo->prox;
+    delete(segundo);
+  n--;
+
+   // delete(aux);
+  //  inicio->prox=segundo;
+
+
+    }
+
+    void questao3(){
+
+    printf("\nTamanho atual da lista:%d\n",n);
+
+
+    }
+
+   void questao4(){
+   int n;
+
+   scanf("%d",&n);
+
+   for(int i=n;i>0;i--){
+
+    inserirInicio(i);
+
+
+   }
+   }
+
+   void questao5(){
+
+       No *aux=inicio;
+       int valor;
+       scanf("%d",&valor);
+
+   while(aux->prox!=fim){
+
+
+aux=aux->prox;
+   }
+     No * penultimo= new No(valor);
+
+           aux->prox=penultimo;
+        penultimo->prox=fim;
+
+
+n++;
+
+   }
+
+
+
+
+
+};
+
+int main() {
+
+    Lista l;
+
+
+  l.inserirInicio(10);
+    l.inserirInicio(5);
+    l.inserirInicio(1);
+    l.inserirInicio(8);
+    l.inserirFinal(7);
+    l.inserirFinal(3);
+
+    l.imprimir();
+
+
+//l.questao1();
+//l.questao2();
+//l.questao3();
+//l.questao4();
+//l.questao5();
+l.imprimir();
+
+
+    return 0;
+}
